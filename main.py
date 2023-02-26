@@ -11,7 +11,7 @@ load_dotenv()
 
 if __name__ == "__main__":
     w3 = Web3(Web3.HTTPProvider(os.getenv("INFURA")))
-    contract = w3.eth.contract(address=os.getenv("NFT_CONTRACT"), abi=str(data['abi']))
+    contract = w3.eth.contract(address=os.getenv("NFT_CONTRACT"), abi=str(data))
     new_filter = contract.events.NFTMinted.create_filter(fromBlock='latest')
     print(new_filter.get_all_entries())
     webhook = DiscordWebhook(url=os.getenv("DISCORD_HOOK"), rate_limit_retry=True)
