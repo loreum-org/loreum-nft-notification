@@ -2,7 +2,7 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 from dotenv import load_dotenv
 from nft_json import data
 from web3 import Web3, EthereumTesterProvider
-
+import json
 import os
 import time
 
@@ -10,8 +10,9 @@ load_dotenv()
 
 
 if __name__ == "__main__":
+    myabi = json.load(data['abi'])
     w3 = Web3(Web3.HTTPProvider(os.getenv("INFURA")))
-    contract = w3.eth.contract(address=os.getenv("NFT_CONTRACT"), abi=data)
+    contract = w3.eth.contract(address=os.getenv("NFT_CONTRACT"), abi=myabi)
     new_filter = contract.events.NFTMinted.create_filter(fromBlock='latest')
     print(new_filter.get_all_entries())
     webhook = DiscordWebhook(url=os.getenv("DISCORD_HOOK"), rate_limit_retry=True)
