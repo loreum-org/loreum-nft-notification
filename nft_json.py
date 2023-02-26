@@ -1,5 +1,5 @@
-data = {
-  "abi": [
+data = '''
+  [
     {
       "inputs": [
         {
@@ -682,4 +682,4 @@ data = {
       "type": "receive"
     }
   ]
-}
+'''
