@@ -7,6 +7,8 @@ load_dotenv()
 
 
 if __name__ == "__main__":
+    # provider = HTTPProvider(os.getenv("INFURA"))
+    # print('')
     webhook = DiscordWebhook(url=os.getenv("DISCORD_HOOK"), rate_limit_retry=True)
     embed = DiscordEmbed(title='Loreum Explorer #1 (Minted)', description='Minted by: 0x000', color='03b2f8')
     embed.set_image(url='https://ipfs.io/ipfs/QmfPWZ6VuFyLqTY92RRCCGRQxUKAhBAHs4vJb7wCT15hZr/1')
