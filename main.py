@@ -10,9 +10,10 @@ load_dotenv()
 
 
 if __name__ == "__main__":
-    myabi = json.load(data['abi'])
+    with open('LoreumNFT.json') as json_file:
+        myabi = json.load(json_file)
     w3 = Web3(Web3.HTTPProvider(os.getenv("INFURA")))
-    contract = w3.eth.contract(address=os.getenv("NFT_CONTRACT"), abi=myabi)
+    contract = w3.eth.contract(address=os.getenv("NFT_CONTRACT"), abi=myabi['abi'])
     new_filter = contract.events.NFTMinted.create_filter(fromBlock='latest')
     print(new_filter.get_all_entries())
     webhook = DiscordWebhook(url=os.getenv("DISCORD_HOOK"), rate_limit_retry=True)
