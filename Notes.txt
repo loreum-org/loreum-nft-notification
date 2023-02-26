@@ -1,0 +1,4 @@
+install following pips:
+python-dotenv
+web3
+discord_webhook
