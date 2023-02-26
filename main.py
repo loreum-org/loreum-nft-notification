@@ -1,6 +1,7 @@
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from dotenv import load_dotenv
 from nft_json import data
+from web3 import Web3, EthereumTesterProvider
 
 import os
 import time
@@ -9,8 +10,10 @@ load_dotenv()
 
 
 if __name__ == "__main__":
-    # provider = HTTPProvider(os.getenv("INFURA"))
-    # print('')
+    w3 = Web3(Web3.HTTPProvider(os.getenv("INFURA"))
+    contract = w3.eth.contract(address=os.getenv("NFT_CONTRACT"), abi=str(data['abi']))
+    new_filter = contract.events.NFTMinted.create_filter(fromBlock='latest')
+    print(new_filter.get_all_entries())
     webhook = DiscordWebhook(url=os.getenv("DISCORD_HOOK"), rate_limit_retry=True)
     embed = DiscordEmbed(
         title='Loreum Explorer #2',
@@ -20,4 +23,4 @@ if __name__ == "__main__":
     embed.set_image(url='https://ipfs.io/ipfs/QmfPWZ6VuFyLqTY92RRCCGRQxUKAhBAHs4vJb7wCT15hZr/2')
     webhook.add_embed(embed)
     print(embed)
-    webhook.execute()
+    # webhook.execute()
